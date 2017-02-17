@@ -2,13 +2,27 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
-let productName =[];
-let addProduct={};
+//let productName =[];
+let addProduct=[];
 /*if(Meteor.isClient) {*/
+
+// INIT REACTIVE-VAR
+/*Template.commanTable.onRendered(function() {
+  this.productName = new ReactiveVar();
+});*/
+
   Template.hello.onCreated(function helloOnCreated() {
     // counter starts at 0
     this.counter = new ReactiveVar(0);
   });
+
+Template.commanTable.onCreated(function commanTableOnCreated() {
+  // counter starts at 0
+  this.productName = new ReactiveVar([{product: 'Atlassion', id: 1},
+    {product: 'Jira', id: 2},
+    {product: 'Github', id: 3},
+    {product: 'HackerRank', id: 4}]);
+});
 
   Template.hello.helpers({
     counter() {
@@ -24,19 +38,10 @@ let addProduct={};
   });
 
 
-  Template.commanTable.helpers({
-    productName: function () {
-      debugger;
-      if (!addProduct.id){
-        productName = [{product: 'Atlassion', id: 1},
-          {product: 'Jira', id: 2},
-          {product: 'Github', id: 3},
-          {product: 'HackerRank', id: 4}];
-    }
-     else  {
-        productName.push(addProduct);
-      }
-      return productName;
+  Template.commanTable.helpers({llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+      productName() {
+        return Template.instance().productName.get();
+   //   },
     },
 
     isView: function () {
@@ -68,21 +73,23 @@ let addProduct={};
 
       });*/
      debugger;
-      productName[parseInt(event.target.id)-1].product = $('#txtProductName_'+event.target.id).val();
+      productName[parseInt(event.target.id)-1].product = $('#AddProductName'+event.target.id).val();
 
       Session.set('editItemId', null);
     },
 
-     'click .saveData': function (event) {
+     'click .saveData': function (event,instance) {
        /* var data = _.filter(productName, function (data) {
         return data.id == event.target.id;
 
         });*/
        debugger;
+       addProduct =instance.productName.get();
+       addProduct.push({product: $('#AddProductName').val(), id: 7});
+       instance.productName.set(addProduct);
 
-       addProduct ={product: $('#txtProductName').val(), id: productName.length+1};
-       Template.commanTable.__helpers.get('productName').call();
-       addProduct ={};
+       //Template.commanTable.__helpers.get('productName').call();
+       //addProduct ={};
 
      }
   });
