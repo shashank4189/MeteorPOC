@@ -1,0 +1,77 @@
+<head>
+  <title>hello</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+
+  {{> hello}}
+
+  {{> commanTable}}
+
+  {{> info}}
+</body>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+<template name ="commanTable">
+    <div>
+        <input type="text" id="AddProductName" value="" />
+        <button class="saveData"   > Add Data</button>
+    </div>
+      <table>
+        <th>Name</th>
+        <th>Action</th>
+        {{#each productName}}
+            {{#if isView}}
+        <tr >
+
+            <td>
+                <input type="text" id="txtProductName_{{id}}" value="{{product}}" />
+            </td>
+            <td>
+                <button class="updateData"   id="{{id}}"> Update Data</button>
+            </td>
+            <td>
+                <button class="editData"   id="{{id}}"> Edit Data</button>
+            </td>
+            <td>
+                <button class="deleteData"   id="{{id}}"> Delete Data</button>
+            </td>
+        </tr>
+            {{else}}
+            <tr >
+
+                <td>
+                    {{product}}
+                </td>
+                <td>
+                    <button class="updateData"   id="{{id}}"> Update Data</button>
+                </td>
+                <td>
+                    <button class="editData"   id="{{id}}"> Edit Data</button>
+                </td>
+                <td>
+                    <button class="deleteData"   id="{{id}}"> Delete Data</button>
+                </td>
+            </tr>
+            {{/if}}
+        {{/each}}
+    </table>
+
+
+</template>
+
+
+<template name="info">
+  <h2>Learn Meteor!</h2>
+  <ul>
+    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
+    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
+    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
+    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
+  </ul>
+</template>
